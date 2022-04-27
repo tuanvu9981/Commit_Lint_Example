@@ -5,15 +5,15 @@ orbs:
 
 jobs:
 
-  lint-commit:
-    working_directory: ~/commit-lint-circleci
-    docker:   
-      - image: "circleci/node:16.10"
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run: npx commitlint
+  # lint-commit:
+  #   working_directory: ~/commit-lint-circleci
+  #   docker:   
+  #     - image: "circleci/node:16.10"
+  #   steps:
+  #     - checkout
+  #     - node/install-packages:
+  #         pkg-manager: npm
+  #     - run: npx commitlint
 
   build: 
     working_directory: ~/commit-lint-circleci 
@@ -40,10 +40,10 @@ jobs:
 workflows:
   lint-build-test:
     jobs:
-      - lint-commit
+      # - lint-commit
       - build:
           requires:
-            - lint-commit
+            # - lint-commit
       - test:
           requires:
             - build
