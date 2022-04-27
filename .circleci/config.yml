@@ -40,10 +40,10 @@ jobs:
 workflows:
   lint-build-test:
     jobs:
-      - lint
+      - lint-commit
       - build:
           requires:
-            - lint
+            - lint-commit
       - test:
           requires:
             - build
