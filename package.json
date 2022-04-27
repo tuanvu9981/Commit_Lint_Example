@@ -4,12 +4,14 @@
   "description": "test commit lint & yamllint",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "prepare": "husky install"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1"
+    "@commitlint/config-conventional": "^16.2.1",
+    "husky": "^7.0.4"
   }
 }
