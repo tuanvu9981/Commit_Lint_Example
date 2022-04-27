@@ -11,7 +11,9 @@
 
 * ``` npm set-script prepare "husky install"``` : Thêm dòng mới ```"prepare": "husky install"``` vào phần ```script``` trong file ```package.json```. Lần sau partner chạy npm install đỡ nhọc 
 
-* ```npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"``` : Thêm 1 hook husky là "pre-commit" mà chạy trước khi code được commit, đồng thời tạo file shell commit-msg bên trong folder .husky.
+* ```npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"``` :
+    * Thêm 1 hook husky là "pre-commit" mà chạy trước khi code được commit, đồng thời tạo file shell commit-msg bên trong folder .husky. 
+    * Lấy ra commit message của cái commit gần đấy nhất 
 
 * Định nghĩa các type mà cho phép push/commit lên github 
 ```
@@ -30,3 +32,6 @@ rules: {
 
 * ```"start": "node index.js"``` : Khi chạy ```npm start``` thì chính là khởi động chạy ```node index.js```
 
+### Naming (Cách đặt tên)
+* Lưu ý khi đặt tên virtual environment ảo trong .circleci/config.yml sao cho trùng tên với path khi import/export/require module nào đó. **Nếu đặt tên khác nhau → có khả năng xuất hiện lỗi đường dẫn/file không tồn tại** 
+* Cách tốt nhất là đặt tên trùng luôn với tên repository
