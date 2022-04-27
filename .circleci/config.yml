@@ -41,8 +41,8 @@ workflows:
   lint-build-test:
     jobs:
       # - lint-commit
-      - build:
-          requires:
+      - build
+            # requires:
             # - lint-commit
       - test:
           requires:
