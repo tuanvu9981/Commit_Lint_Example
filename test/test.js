@@ -1,4 +1,4 @@
-const add = require('../commitlint_example/index').add;
+const add = require('../index').add;
 
 const errMsg = "Test: FAILED"
 
@@ -12,12 +12,12 @@ if (result2 != 9) {
     throw new Error(errMsg);
 }
 
-let result4 = add(7,9);
-if (result4 != 16){
+let result4 = add(7, 9);
+if (result4 != 16) {
     throw new Error(errMsg);
 }
 
 var result3 = add(6, 7);
-if (result3 != 12) {
+if (result3 != 13) {
     throw new Error(errMsg);
 } else console.log("All: PASSED!");

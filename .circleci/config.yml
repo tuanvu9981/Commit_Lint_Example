@@ -6,7 +6,7 @@ orbs:
 jobs:
 
   # lint-commit:
-  #   working_directory: ~/commit-lint-circleci
+  #   working_directory: ~/commitlint_example
   #   docker:   
   #     - image: "circleci/node:16.10"
   #   steps:
@@ -16,7 +16,7 @@ jobs:
   #     - run: npx commitlint
 
   build: 
-    working_directory: ~/commit-lint-circleci 
+    working_directory: ~/commitlint_example
     # Virtual folder in docker
     docker: 
       - image: "circleci/node:16.10"
@@ -27,7 +27,7 @@ jobs:
       - run: npm start
 
   test:
-    working_directory: ~/commit-lint-circleci 
+    working_directory: ~/commitlint_example
     docker: 
       - image: "circleci/node:16.10"
     steps:
