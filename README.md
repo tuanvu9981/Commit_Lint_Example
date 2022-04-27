@@ -2,6 +2,9 @@
 
 ### Reference
 * [Commit Lint Free Code Camp](https://www.freecodecamp.org/news/how-to-use-commitlint-to-write-good-commit-messages/)
+* [Conventional CommitLint Viblo](https://viblo.asia/p/ban-dang-viet-commit-message-nhu-the-nao-gDVK22A0KLj)
+* [Conventional CommitLint](https://www.conventionalcommits.org/en/v1.0.0/#specification)
+* [Angular Conventional Commit-Lint](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
 
 ### Commands
 * ```npx husky install```: Allow the husky hook & create .husky folder
