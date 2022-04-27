@@ -10,5 +10,14 @@
 
 * ```npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"```: adds a husky pre-commit hook that will run before the code is committed, (+create shell file commit-msg inside .husky folder)
 
-
+* Định nghĩa các type mà cho phép push/commit lên github 
+```
+rules: {
+        "type-enum": [2, "always", [
+            "build", "chore", "ci", "docs",
+            "feat", "fix", "perf", "refactor",
+            "revert", "style", "test", "button"
+        ]]
+    }
+```
 
