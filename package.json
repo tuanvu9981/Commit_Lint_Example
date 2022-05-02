@@ -6,13 +6,17 @@
   "scripts": {
     "test": "node test/test.js",
     "prepare": "husky install",
-    "start": "node index.js"
+    "start": "node index.js",
+    "anything": "node something.js",
+    "yaml-lint": "yamllint ./.circleci/config.yml"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "husky": "^7.0.4"
-  }
+    "husky": "^7.0.4",
+    "yaml-lint": "^1.6.0"
+  },
+  "dependencies": {}
 }

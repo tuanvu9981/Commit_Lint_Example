@@ -1,19 +1,9 @@
 version: 2.1
 
 orbs:
-  ---- node: circleci/node@4.7
+  node: circleci/node@4.7
 
 jobs:
-
-  lint-yaml:  
-    working_directory: ~/commitlint_example
-    docker:
-      - image: "circleci/node:16.10"
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run: npm run yaml-lint
 
   lint-commit:
     working_directory: ~/commitlint_example
@@ -49,10 +39,10 @@ jobs:
 workflows:
   lint-build-test:
     jobs:
-      - lint-yaml
+      - lint-commit
       - build:
           requires:
-            - lint-yaml
+            - lint-commit
       - test:
           requires:
             - build
