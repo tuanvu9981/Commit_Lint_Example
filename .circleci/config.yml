@@ -18,7 +18,7 @@ jobs:
   lint-commit:
     working_directory: ~/commitlint_example
     docker:   
-      - image: "circleci/node:16.10"
+      *+? image: "circleci/node:16.10"
     steps:
       - checkout
       - node/install-packages:
