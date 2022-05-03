@@ -23,7 +23,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      - run: npx commitlint
+      - run: npm run commit-lint
 
   build: 
     working_directory: ~/commitlint_example # Virtual folder in docker

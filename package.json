@@ -7,8 +7,8 @@
     "test": "node test/test.js",
     "prepare": "husky install",
     "start": "node index.js",
-    "anything": "node something.js",
-    "yaml-lint": "yamllint test/docker.yml"
+    "yaml-lint": "yamllint test/docker.yml",
+    "commit-lint": "npx --no -- commitlint --edit $1"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
