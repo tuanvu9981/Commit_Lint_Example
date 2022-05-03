@@ -8,7 +8,7 @@
     "prepare": "husky install",
     "start": "node index.js",
     "anything": "node something.js",
-    "yaml-lint": "yamllint ./.circleci/config.yml"
+    "yaml-lint": "yamllint test/docker.yml"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
