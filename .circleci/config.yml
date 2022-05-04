@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7
+  gh: circleci/github-cli@1.0
 
 jobs:
 
@@ -43,11 +44,10 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      - run: npm test
-      
+      - run: npm test      
 
 workflows:
-  lint-build-test:
+  lint-build-test-release:
     jobs:
       - lint-yaml
       - lint-commit:
@@ -59,3 +59,15 @@ workflows:
       - test:
           requires:
             - build
+      - gh/release:
+          notes-file: changelog.md
+          tag: 1.0.0
+          title: The initial release
+          requires: 
+            - test
+          context: 
+            - GITHUB_CREDS
+          filters:
+            branches:
+              only: 
+                - master
