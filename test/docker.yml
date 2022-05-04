@@ -1,4 +1,4 @@
-version: '3.3'
+---version: '3.3'
 
 services:
   mongo_db:
@@ -40,27 +40,27 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     env_file: ./.env
-    ports: 
+    ports:
       - ${REACT_LOCAL_PORT}:${REACT_DOCKER_PORT}
-    volumes: 
+    volumes:
       - ./frontend:/app/frontend
     depends_on:
       - backend
-    networks: 
+    networks:
       - app
 
 networks:
   app:
-    driver: bridge 
+    driver: bridge
 
-# 1. Run and test/make migrate with a running container:     
+# 1. Run and test/make migrate with a running container:
 # docker exec -it <container_id with docker ps> sh
 
 # 2. Volume: (Real folder):(Virtual folder) --> Purpose: Backup data
 
-# 3. Build container from Dockerfile instead of pure image(s): 
+# 3. Build container from Dockerfile instead of pure image(s):
 # build:
 #   context: ./backend
 #   dockerfile: Dockerfile
 
-# 4.  
+# 4.
