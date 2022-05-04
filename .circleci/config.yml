@@ -50,12 +50,13 @@ workflows:
   lint-build-test-release:
     jobs:
       - lint-yaml
-      - lint-commit:
-          requires:
-            - lint-yaml
+      # - lint-commit:
+      #     requires:
+      #       - lint-yaml
       - build:
           requires:
-            - lint-commit
+            # - lint-commit
+            - lint-yaml
       - test:
           requires:
             - build
