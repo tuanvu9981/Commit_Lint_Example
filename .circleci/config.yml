@@ -22,6 +22,7 @@ jobs:
   lint-yaml: &lint-yaml
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm run yaml-lint
@@ -29,6 +30,7 @@ jobs:
   lint-commit: &lint-commit
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: 
@@ -43,6 +45,7 @@ jobs:
   build: &build
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
@@ -50,6 +53,7 @@ jobs:
   test: &test
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm test      
