@@ -46,3 +46,19 @@ rules: {
 1. [yaml-lint orbs](https://circleci.com/developer/orbs/orb/freighthub/yamllint)
 2. [commit-lint orbs](https://circleci.com/developer/orbs/orb/conventional-changelog/commitlint)
 3. [auto release](https://circleci.com/developer/orbs/orb/circleci/github-cli)
+
+
+### Các key được cho phép trong CircleCI config
+    - description
+    - parallelism
+    - macos
+    - resource_class
+    - docker
+    - steps
+    - working_directory
+    - circleci_ip_ranges
+    - machine
+    - environment
+    - executor
+    - shell
+    - parameters 

@@ -8,8 +8,9 @@ defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
   docker:
     - image: cimg/node:15.0.1
-  node/install-packages:
-    - pkg-manager: npm
+  # steps:
+  #   - node/install-packages:
+  #       pkg-manager: npm
 
 jobs:
 
