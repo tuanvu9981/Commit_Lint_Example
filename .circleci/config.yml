@@ -8,16 +8,19 @@ defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
   docker:
     - image: cimg/node:15.0.1
-  steps:
+
+jobs:
+
+  setup: &setup
+    <<: *defaults
+    steps:
     - checkout
     - node/install-packages:
         pkg-manager: npm
     - persist_to_workspace:
-      root: ~/commitlint_example
-      paths:
-        - node_modules
-
-jobs:
+        root: ~/commitlint_example
+        paths:
+          - node_modules
 
   lint-yaml: &lint-yaml
     <<: *defaults
@@ -61,7 +64,13 @@ jobs:
 workflows:
   lint-build-test-release:
     jobs:
-      - lint-yaml
+      - setup
+      - lint-yaml:
+          requires:
+            - setup
+      - lint-commit:
+          requires:
+            - setup
       - lint-commit
       - build:
           requires:
