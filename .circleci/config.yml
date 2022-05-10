@@ -13,9 +13,9 @@ defaults: &defaults
     - node/install-packages:
         pkg-manager: npm
     - persist_to_workspace:
-      root: . 
+      root: ~/commitlint_example
       paths:
-        - '*'
+        - node_modules
 
 jobs:
 
@@ -23,14 +23,14 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/commitlint_example
       - run: npm run yaml-lint
 
   lint-commit: &lint-commit
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/commitlint_example
       - run: 
           name: Define environment variable with latest commit's message
           command:  |
@@ -44,14 +44,14 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/commitlint_example
       - run: npm start
 
   test: &test
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/commitlint_example
       - run: npm test      
 
 workflows:
