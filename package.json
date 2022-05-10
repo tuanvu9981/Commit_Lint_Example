@@ -1,6 +1,6 @@
 {
   "name": "commitlint_example",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "test commit lint & yamllint",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "prepare": "husky install",
     "start": "node index.js",
     "yaml-lint": "yamllint test/docker.yml",
-    "commit-lint": "npx --no -- commitlint --edit $1"
+    "commit-lint": "npx --no -- commitlint --edit $1",
+    "release": "standard-version"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
@@ -16,7 +17,7 @@
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "husky": "^7.0.4",
+    "standard-version": "^9.3.2",
     "yaml-lint": "^1.6.0"
-  },
-  "dependencies": {}
+  }
 }

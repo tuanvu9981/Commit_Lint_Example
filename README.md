@@ -62,3 +62,10 @@ rules: {
     - executor
     - shell
     - parameters 
+
+* [Viết circle ci test cho duy nhất 1 commit mới nhất](https://commitlint.js.org/#/guides-ci-setup?id=circleci)
+
+* [6 bước để viết config hiệu quả và chi tiết hơn](https://circleci.com/blog/six-optimization-tips-for-your-config/)
+
+
+

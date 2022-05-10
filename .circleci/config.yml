@@ -9,21 +9,28 @@ defaults: &defaults
   docker:
     - image: cimg/node:15.0.1
   steps:
+    - checkout
     - node/install-packages:
         pkg-manager: npm
+    - persist_to_workspace:
+      root: . 
+      paths:
+        - '*'
 
 jobs:
 
   lint-yaml: &lint-yaml
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run: npm run yaml-lint
 
   lint-commit: &lint-commit
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run: 
           name: Define environment variable with latest commit's message
           command:  |
@@ -36,13 +43,15 @@ jobs:
   build: &build
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run: npm start
 
   test: &test
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run: npm test      
 
 workflows:
