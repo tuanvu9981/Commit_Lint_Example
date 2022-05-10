@@ -3,63 +3,56 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
-  commitlint: conventional-changelog/commitlint@1.0.0
+
+common:
+  working_directory: ~/commitlint_example # Virtual folder in docker
+  docker:
+    - image: cimg/node:15.0.1
+  node/install-packages:
+    - pkg-manager: npm
 
 jobs:
 
   lint-yaml:  
-    working_directory: ~/commitlint_example
-    docker:
-      - image: "circleci/node:16.10"
+    <<: *common
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: npm run yaml-lint
 
-  # lint-commit:
-  #   working_directory: ~/commitlint_example
-  #   docker:   
-  #     - image: "circleci/node:16.10"
-  #   steps:
-  #     - checkout
-  #     - node/install-packages:
-  #         pkg-manager: npm
-  #     - run: npm run commit-lint
-
-  build: 
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker: 
-      - image: "circleci/node:16.10"
+  lint-commit:
+    <<: *common
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
+      - run: 
+          name: Define environment variable with latest commit's message
+          command:  |
+            echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
+            source $BASH_ENV
+      - run: 
+          name: Lint commit message here
+          command: echo "$COMMIT_MESSAGE" | npx commitlint
+
+  build: 
+    <<: *common
+    steps:
+      - checkout
       - run: npm start
 
   test:
-    working_directory: ~/commitlint_example
-    docker: 
-      - image: "circleci/node:16.10"
+    <<: *common
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: npm test      
 
 workflows:
   lint-build-test-release:
     jobs:
       - lint-yaml
-      - commitlint/lint
-      # - lint-commit:
-      #     requires:
-      #       - lint-yaml
-      # - build:
-      #     requires:
-      #         - lint-yaml
-      #         - lint-commit
-      - build
+      - lint-commit
+      - build:
+          requires:
+            - lint-yaml
+            - lint-commit
       - test:
           requires:
             - build
