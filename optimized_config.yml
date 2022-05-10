@@ -4,35 +4,25 @@ orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
 
-# defaults:
-#   working_directory: ~/commitlint_example # Virtual folder in docker
-#   docker:
-#     - image: cimg/node:15.0.1
-#   node/install-packages:
-#     - pkg-manager: npm
+defaults:
+  working_directory: ~/commitlint_example # Virtual folder in docker
+  docker:
+    - image: cimg/node:15.0.1
+  node/install-packages:
+    - pkg-manager: npm
 
 jobs:
 
   lint-yaml:  
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-        - pkg-manager: npm
       - run: npm run yaml-lint
 
   lint-commit:
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-        - pkg-manager: npm
       - run: 
           name: Define environment variable with latest commit's message
           command:  |
@@ -43,25 +33,15 @@ jobs:
           command: echo "$COMMIT_MESSAGE" | npx commitlint
 
   build: 
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-        - pkg-manager: npm
       - run: npm start
 
   test:
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-        - pkg-manager: npm
       - run: npm test      
 
 workflows:
@@ -78,9 +58,8 @@ workflows:
             - build
       - gh/release:
           notes-file: changelog.md
-          tag: 1.0.1
-          title: The next version with many fixes
-          description: Contains a lot of commits
+          tag: 1.0.0
+          title: The initial release
           requires: 
             - test
           context: 
