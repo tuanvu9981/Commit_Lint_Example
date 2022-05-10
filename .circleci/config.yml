@@ -4,35 +4,25 @@ orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
 
-# defaults:
-#   working_directory: ~/commitlint_example # Virtual folder in docker
-#   docker:
-#     - image: cimg/node:15.0.1
-#   node/install-packages:
-#     - pkg-manager: npm
+defaults: &defaults
+  working_directory: ~/commitlint_example # Virtual folder in docker
+  docker:
+    - image: cimg/node:15.0.1
+  node/install-packages:
+    - pkg-manager: npm
 
 jobs:
 
-  lint-yaml:  
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+  lint-yaml: &lint-yaml
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: npm run yaml-lint
 
-  lint-commit:
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+  lint-commit: &lint-commit
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: 
           name: Define environment variable with latest commit's message
           command:  |
@@ -42,26 +32,16 @@ jobs:
           name: Lint commit message here
           command: echo "$COMMIT_MESSAGE" | npx commitlint
 
-  build: 
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+  build: &build
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: npm start
 
-  test:
-    # <<: *defaults
-    working_directory: ~/commitlint_example # Virtual folder in docker
-    docker:
-      - image: cimg/node:15.0.1
+  test: &test
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run: npm test      
 
 workflows:
@@ -76,15 +56,15 @@ workflows:
       - test:
           requires:
             - build
-      - gh/release:
-          notes-file: changelog.md
-          tag: 1.0.1
-          title: The next version with many fixes
-          requires: 
-            - test
-          context: 
-            - GITHUB_CREDS
-          filters:
-            branches:
-              only: 
-                - master
+      # - gh/release:
+      #     notes-file: changelog.md
+      #     tag: 1.0.0
+      #     title: The initial release
+      #     requires: 
+      #       - test
+      #     context: 
+      #       - GITHUB_CREDS
+      #     filters:
+      #       branches:
+      #         only: 
+      #           - master

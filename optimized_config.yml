@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
 
-defaults:
+defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
   docker:
     - image: cimg/node:15.0.1
@@ -13,13 +13,13 @@ defaults:
 
 jobs:
 
-  lint-yaml:  
+  lint-yaml: &lint-yaml
     <<: *defaults
     steps:
       - checkout
       - run: npm run yaml-lint
 
-  lint-commit:
+  lint-commit: &lint-commit
     <<: *defaults
     steps:
       - checkout
@@ -32,13 +32,13 @@ jobs:
           name: Lint commit message here
           command: echo "$COMMIT_MESSAGE" | npx commitlint
 
-  build: 
+  build: &build
     <<: *defaults
     steps:
       - checkout
       - run: npm start
 
-  test:
+  test: &test
     <<: *defaults
     steps:
       - checkout
@@ -56,15 +56,15 @@ workflows:
       - test:
           requires:
             - build
-      - gh/release:
-          notes-file: changelog.md
-          tag: 1.0.0
-          title: The initial release
-          requires: 
-            - test
-          context: 
-            - GITHUB_CREDS
-          filters:
-            branches:
-              only: 
-                - master
+      # - gh/release:
+      #     notes-file: changelog.md
+      #     tag: 1.0.0
+      #     title: The initial release
+      #     requires: 
+      #       - test
+      #     context: 
+      #       - GITHUB_CREDS
+      #     filters:
+      #       branches:
+      #         only: 
+      #           - master
