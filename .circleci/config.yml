@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
-  commitlint: conventional-changelog/commitlint@1.0
 
 jobs:
 
@@ -17,11 +16,15 @@ jobs:
           pkg-manager: npm
       - run: npm run yaml-lint
 
-  # lint-commit:
-  #   working_directory: ~/commitlint_example
-  #   steps:
-  #     - checkout
-  #     - commitlint/lint
+  lint-commit:
+    working_directory: ~/commitlint_example
+    docker:   
+      - image: "circleci/node:16.10"
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run: npm run commit-lint
 
   build: 
     working_directory: ~/commitlint_example # Virtual folder in docker
@@ -47,10 +50,13 @@ workflows:
   lint-build-test-release:
     jobs:
       - lint-yaml
-      - commitlint/lint
-      - build:
+      - lint-commit:
           requires:
             - lint-yaml
+      - build:
+          requires:
+              # - lint-yaml
+              - lint-commit
       - test:
           requires:
             - build
