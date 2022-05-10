@@ -80,7 +80,6 @@ workflows:
           notes-file: changelog.md
           tag: 1.0.1
           title: The next version with many fixes
-          description: Contains a lot of commits
           requires: 
             - test
           context: 
