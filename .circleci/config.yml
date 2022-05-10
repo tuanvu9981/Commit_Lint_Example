@@ -47,10 +47,10 @@ workflows:
   lint-build-test-release:
     jobs:
       - lint-yaml
+      - commitlint/lint
       - build:
           requires:
             - lint-yaml
-            - commitlint/lint
       - test:
           requires:
             - build
