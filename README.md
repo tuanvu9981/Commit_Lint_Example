@@ -41,3 +41,8 @@ rules: {
 * Ở branch mới của mình, trước khi làm gì đó, phải pull code từ origin remote về, cả nhánh feature, nhánh tên mình, nhánh master trên local. Đảm bảo khớp với remote nhất có thể.
 --> Khi đó, checkout sang 1 branch mới sẽ ít lỗi hơn
 * [Một số lưu ý git khi làm việc nhóm](https://viblo.asia/p/quy-trinh-lam-viec-chuan-chi-voi-git-eW65G10RZDO)
+
+### Orbs:
+1. [yaml-lint orbs](https://circleci.com/developer/orbs/orb/freighthub/yamllint)
+2. [commit-lint orbs](https://circleci.com/developer/orbs/orb/conventional-changelog/commitlint)
+3. [auto release](https://circleci.com/developer/orbs/orb/circleci/github-cli)
