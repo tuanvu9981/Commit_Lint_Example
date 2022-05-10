@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-        - pkg-manager: npm
+          pkg-manager: npm
       - run: npm run yaml-lint
 
   lint-commit:
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-        - pkg-manager: npm
+          pkg-manager: npm
       - run: 
           name: Define environment variable with latest commit's message
           command:  |
@@ -50,7 +50,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-        - pkg-manager: npm
+          pkg-manager: npm
       - run: npm start
 
   test:
@@ -61,7 +61,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-        - pkg-manager: npm
+          pkg-manager: npm
       - run: npm test      
 
 workflows:
