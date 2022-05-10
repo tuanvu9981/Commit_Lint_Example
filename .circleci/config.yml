@@ -71,7 +71,6 @@ workflows:
       - lint-commit:
           requires:
             - setup
-      - lint-commit
       - build:
           requires:
             - lint-yaml
