@@ -62,12 +62,12 @@ jobs:
       - run: npm test      
   
   changelog-create: &changelog-create
-  <<: *defaults
-  steps:
-    - checkout
-    - attach_workspace:
-        at: ~/commitlint_example
-    - run: npx run release
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/commitlint_example
+      - run: npx run release
 
 workflows:
   lint-build-test-release:
