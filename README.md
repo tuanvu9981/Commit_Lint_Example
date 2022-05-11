@@ -67,5 +67,7 @@ rules: {
 
 * [6 bước để viết config hiệu quả và chi tiết hơn](https://circleci.com/blog/six-optimization-tips-for-your-config/)
 
+* [Tạo changelog tự động github + circleci](https://sudolabs.com/blog/change-log-generator-github-circleci)
+
 
 

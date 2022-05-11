@@ -1,6 +1,6 @@
 {
   "name": "commitlint_example",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "test commit lint & yamllint",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "start": "node index.js",
     "yaml-lint": "yamllint test/docker.yml",
     "commit-lint": "npx --no -- commitlint --edit $1",
-    "release": "standard-version"
+    "release": "npx standard-version",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
@@ -19,5 +20,8 @@
     "husky": "^7.0.4",
     "standard-version": "^9.3.2",
     "yaml-lint": "^1.6.0"
+  },
+  "dependencies": {
+    "conventional-changelog": "^3.1.25"
   }
 }
