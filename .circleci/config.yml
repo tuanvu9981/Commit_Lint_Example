@@ -60,6 +60,14 @@ jobs:
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm test      
+  
+  changelog-create: &changelog-create
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/commitlint_example
+      - run: npx run release
 
 workflows:
   lint-build-test-release:
@@ -78,15 +86,22 @@ workflows:
       - test:
           requires:
             - build
-      # - gh/release:
-      #     notes-file: changelog.md
-      #     tag: 1.0.0
-      #     title: The initial release
-      #     requires: 
-      #       - test
-      #     context: 
-      #       - GITHUB_CREDS
-      #     filters:
-      #       branches:
-      #         only: 
-      #           - master
+      - changelog-create:
+          filters:
+            branches:
+              only: 
+                - master
+          requires:
+            - test
+      - gh/release:
+          notes-file: changelog.md
+          tag: 1.0.0
+          title: The initial release
+          requires: 
+            - test
+          context: 
+            - GITHUB_CREDS
+          filters:
+            branches:
+              only: 
+                - master
