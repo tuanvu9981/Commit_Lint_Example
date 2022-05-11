@@ -67,7 +67,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/commitlint_example
-      - run: npx run release
+      - run: npm run release
 
 workflows:
   lint-build-test-release:
@@ -95,8 +95,8 @@ workflows:
             - test
       - gh/release:
           notes-file: changelog.md
-          tag: 1.0.0
-          title: The initial release
+          tag: 1.0.1
+          title: Added commit-lint, yaml-lint & auto-created release note
           requires: 
             - test
           context: 
