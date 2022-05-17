@@ -30,20 +30,20 @@ jobs:
           at: ~/commitlint_example
       - run: npm run yaml-lint
 
-  # lint-commit: &lint-commit
-  #   <<: *defaults
-  #   steps:
-  #     - checkout
-  #     - attach_workspace:
-  #         at: ~/commitlint_example
-  #     - run: 
-  #         name: Define environment variable with latest commit's message
-  #         command:  |
-  #           echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
-  #           source $BASH_ENV
-  #     - run: 
-  #         name: Lint commit message here
-  #         command: echo "$COMMIT_MESSAGE" | npx commitlint
+  lint-commit: &lint-commit
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/commitlint_example
+      - run: 
+          name: Define environment variable with latest commit's message
+          command:  |
+            echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
+            source $BASH_ENV
+      - run: 
+          name: Lint commit message here
+          command: echo "$COMMIT_MESSAGE" | npx commitlint
 
   build: &build
     <<: *defaults
@@ -76,13 +76,13 @@ workflows:
       - lint-yaml:
           requires:
             - setup
-      # - lint-commit:
-      #     requires:
-      #       - setup
+      - lint-commit:
+          requires:
+            - setup
       - build:
           requires:
             - lint-yaml
-            # - lint-commit
+            - lint-commit
       - test:
           requires:
             - build
