@@ -69,3 +69,4 @@ rules: {
 
 * [Tạo changelog tự động github + circleci](https://sudolabs.com/blog/change-log-generator-github-circleci)
 
+* [Cơ bản về git work flow](https://viblo.asia/p/co-ban-ve-gitflow-workflow-4dbZNn6yZYM)

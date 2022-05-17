@@ -93,15 +93,15 @@ workflows:
       #           - master
       #     requires:
       #       - test
-      # - gh/release:
-      #     notes-file: changelog.md
-      #     tag: 1.0.1
-      #     title: Added commit-lint, yaml-lint & auto-created release note
-      #     requires: 
-      #       - test
-      #     context: 
-      #       - GITHUB_CREDS
-      #     filters:
-      #       branches:
-      #         only: 
-      #           - master
+      - gh/release:
+          notes-file: changelog.md
+          tag: 1.0.5
+          title: Added commit-lint, yaml-lint & auto-created release note with GitFlow
+          requires: 
+            - test
+          context: 
+            - GITHUB_CREDS
+          filters:
+            branches:
+              only: 
+                - master
