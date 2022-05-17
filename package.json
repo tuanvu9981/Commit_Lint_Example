@@ -4,7 +4,7 @@
   "description": "test commit lint & yamllint",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js",
+    "test": "node test/test-subtract.js",
     "prepare": "husky install",
     "start": "node index.js",
     "yaml-lint": "yamllint test/docker.yml",

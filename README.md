@@ -69,5 +69,3 @@ rules: {
 
 * [Tạo changelog tự động github + circleci](https://sudolabs.com/blog/change-log-generator-github-circleci)
 
-
-
