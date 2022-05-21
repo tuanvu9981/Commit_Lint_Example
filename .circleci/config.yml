@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
+  yamllint: freighthub/yamllint@1.0.0
 
 defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
@@ -22,13 +23,13 @@ jobs:
         paths:
           - .
 
-  lint-yaml: &lint-yaml
-    <<: *defaults
-    steps:
-      # - checkout
-      - attach_workspace:
-          at: ~/commitlint_example
-      - run: npm run yaml-lint
+  # lint-yaml: &lint-yaml
+  #   <<: *defaults
+  #   steps:
+  #     # - checkout
+  #     - attach_workspace:
+  #         at: ~/commitlint_example
+  #     - run: npm run yaml-lint
 
   lint-commit: &lint-commit
     <<: *defaults
@@ -73,9 +74,13 @@ workflows:
   lint-build-test-release:
     jobs:
       - setup
-      - lint-yaml:
+      - yamllint:
           requires:
             - setup
+          files: 
+            - ../test/docker.yml
+          gitToken:
+            - GITHUB_CREDS
       - lint-commit:
           requires:
             - setup
