@@ -77,10 +77,8 @@ workflows:
       - yamllint/yamllint:
           requires:
             - setup
-          files: 
-            - ../test/docker.yml
-          gitToken:
-            - GITHUB_CREDS
+          files: ../test/docker.yml
+          gitToken: ${GITHUB_TOKEN}
       - lint-commit:
           requires:
             - setup
