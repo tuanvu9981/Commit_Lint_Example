@@ -74,7 +74,7 @@ workflows:
   lint-build-test-release:
     jobs:
       - setup
-      - yamllint:
+      - yamllint/yamllint:
           requires:
             - setup
           files: 
@@ -86,7 +86,7 @@ workflows:
             - setup
       - build:
           requires:
-            - lint-yaml
+            - yamllint/yamllint
             - lint-commit
       - test:
           requires:
