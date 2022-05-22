@@ -67,26 +67,26 @@ workflows:
     jobs:
       - setup
 
-      - yamllint/yamllint:
-          requires:
-            - setup
-          files: ./test/docker.yml
-          gitToken: ${GITHUB_TOKEN}
+      # - yamllint/yamllint:
+      #     requires:
+      #       - setup
+      #     files: ./test/docker.yml
+      #     gitToken: ${GITHUB_TOKEN}
 
       - commitlint/lint:
           requires:
             - setup
           # max-count: 5
-          target-branch: develop
+          target-branch: master
 
-      - build:
-          requires:
-            - yamllint/yamllint
-            - commitlint/lint
+      # - build:
+      #     requires:
+      #       - yamllint/yamllint
+      #       - commitlint/lint
 
-      - test:
-          requires:
-            - build
+      # - test:
+      #     requires:
+      #       - build
       # - changelog-create:
       #     filters:
       #       branches:
