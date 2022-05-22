@@ -74,7 +74,8 @@ workflows:
       - commitlint/lint:
           requires:
             - setup
-          max-count: 5
+          # max-count: 5
+          target-branch: develop
 
       - build:
           requires:
