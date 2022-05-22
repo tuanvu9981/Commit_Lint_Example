@@ -18,12 +18,11 @@
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "husky": "^7.0.4",
+    "prettier": "2.6.2",
     "standard-version": "^9.3.2",
     "yaml-lint": "^1.6.0"
   },
   "dependencies": {
-    "conventional-changelog": "^3.1.25",
-    "prettier": "^2.3.2",
-    "prettier-plugin-apex": "1.10.1"
+    "conventional-changelog": "^3.1.25"
   }
 }
