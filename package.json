@@ -10,7 +10,8 @@
     "yaml-lint": "yamllint test/docker.yml",
     "commit-lint": "npx --no -- commitlint --edit $1",
     "release": "npx standard-version",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "format": "echo \"Format: DONE\""
   },
   "author": "tuanvu & freecodecamp",
   "license": "ISC",
