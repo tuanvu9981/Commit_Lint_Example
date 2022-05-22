@@ -31,6 +31,9 @@ jobs:
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
+      - run: echo "$GITHUB_USERNAME"
+      - run: echo "${GITHUB_USERNAME}"
+      - run: echo "${GITHUB_TOKEN}"
 
   test: &test
     <<: *defaults
@@ -75,8 +78,9 @@ workflows:
             - build
 
       - changelog/generate:
-          gitemail: ${GITHUB_EMAIL}
-          gitusername: ${GITHUB_USERNAME}
+          context: GITHUB_CREDS
+          gitemail: $GITHUB_EMAIL
+          gitusername: $GITHUB_USERNAME
           requires:
             - test
           filters:
