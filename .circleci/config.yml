@@ -24,7 +24,7 @@ jobs:
         paths:
           - .
     - run: 
-        command: echo "git rev-parse --abbrev-ref HEAD"
+        command: echo "$(git rev-parse --abbrev-ref HEAD)"
 
   # lint-commit: &lint-commit
   #   <<: *defaults
