@@ -4,6 +4,7 @@ orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
   yamllint: freighthub/yamllint@1.0.0
+  commitlint: conventional-changelog/commitlint@1.0.0
 
 defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
@@ -23,33 +24,23 @@ jobs:
         paths:
           - .
 
-  # lint-yaml: &lint-yaml
+  # lint-commit: &lint-commit
   #   <<: *defaults
   #   steps:
-  #     # - checkout
   #     - attach_workspace:
   #         at: ~/commitlint_example
-  #     - run: npm run yaml-lint
-
-  lint-commit: &lint-commit
-    <<: *defaults
-    steps:
-      # - checkout
-      - attach_workspace:
-          at: ~/commitlint_example
-      - run: 
-          name: Define environment variable with latest commit's message
-          command:  |
-            echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
-            source $BASH_ENV
-      - run: 
-          name: Lint commit message here
-          command: echo "$COMMIT_MESSAGE" | npx commitlint
+  #     - run: 
+  #         name: Define environment variable with latest commit's message
+  #         command:  |
+  #           echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
+  #           source $BASH_ENV
+  #     - run: 
+  #         name: Lint commit message here
+  #         command: echo "$COMMIT_MESSAGE" | npx commitlint
 
   build: &build
     <<: *defaults
     steps:
-      # - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
@@ -57,7 +48,6 @@ jobs:
   test: &test
     <<: *defaults
     steps:
-      # - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm test      
@@ -74,18 +64,23 @@ workflows:
   lint-build-test-release:
     jobs:
       - setup
+
       - yamllint/yamllint:
           requires:
             - setup
           files: ./test/docker.yml
           gitToken: ${GITHUB_TOKEN}
-      - lint-commit:
+
+      - commitlint/lint:
           requires:
             - setup
+          max-count: 5
+
       - build:
           requires:
             - yamllint/yamllint
             - lint-commit
+
       - test:
           requires:
             - build

@@ -69,3 +69,4 @@ rules: {
 
 * [Tạo changelog tự động github + circleci](https://sudolabs.com/blog/change-log-generator-github-circleci)
 
+* Thực tế, khi đang viết 1 file config chính là tạo ra 1 cái orbs. Người ta có workflow nào, jobs nào thì chính là thành phần sau dấu / mà mình dùng 
