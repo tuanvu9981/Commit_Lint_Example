@@ -24,12 +24,7 @@ jobs:
         paths:
           - .
     - run: 
-        command: |
-          echo 'export COMMIT_MESSAGE=$(git rev-parse --abbrev-ref HEAD=format:"%s")' >> $BASH_ENV
-          source $BASH_ENV
-
-    - run: 
-        command: echo "$COMMIT_MESSAGE"
+        command: echo "git rev-parse --abbrev-ref HEAD"
 
   # lint-commit: &lint-commit
   #   <<: *defaults
