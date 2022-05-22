@@ -31,6 +31,8 @@ jobs:
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
+      - run: echo "${GITHUB_EMAIL}"
+      - run: echo "${GITHUB_USERNAME}"
 
   test: &test
     <<: *defaults
