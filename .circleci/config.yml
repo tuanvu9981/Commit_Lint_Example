@@ -89,7 +89,7 @@ workflows:
           tag: 1.0.6
           title: Change commit-lint, yaml-lint, release note NPM/NPX to CIRCLECI ORBS
           requires: 
-            - test
+            - changelog/generate
           context: 
             - GITHUB_CREDS
           filters:
