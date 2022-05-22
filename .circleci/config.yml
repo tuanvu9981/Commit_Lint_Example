@@ -31,7 +31,7 @@ jobs:
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
-      - run: echo "${GITHUB_EMAIL}"
+      - run: echo "$GITHUB_USERNAME"
       - run: echo "${GITHUB_USERNAME}"
 
   test: &test
@@ -50,6 +50,11 @@ jobs:
   #     - run: npm run release
 
 workflows:
+  test-env-vars:
+    jobs:
+      - changelog/generate:
+          context: GITHUB_CREDS
+
   lint-build-test-release:
     jobs:
       - setup
@@ -58,7 +63,7 @@ workflows:
           requires:
             - setup
           files: ./test/docker.yml
-          gitToken: ${GITHUB_TOKEN}
+          # gitToken: ${GITHUB_TOKEN}
 
       - commitlint/lint:
           requires:
@@ -77,8 +82,8 @@ workflows:
             - build
 
       - changelog/generate:
-          gitemail: ${GITHUB_EMAIL}
-          gitusername: ${GITHUB_USERNAME}
+          gitemail: $GITHUB_EMAIL
+          gitusername: $GITHUB_USERNAME
           requires:
             - test
           filters:
