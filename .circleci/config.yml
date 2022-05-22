@@ -74,15 +74,15 @@ workflows:
           requires:
             - build
 
-      - changelog/changelog:
+      - changelog/generate:
+          gitemail: ${GITHUB_EMAIL}
+          gitusername: ${GITHUB_USERNAME}
+          requires:
+            - test
           filters:
             branches:
               only: 
                 - master
-          requires:
-            - test
-          gitemail: ${GITHUB_EMAIL}
-          gitusername: ${GITHUB_USERNAME}
 
       - gh/release:
           notes-file: changelog.md
