@@ -79,7 +79,7 @@ workflows:
       - build:
           requires:
             - yamllint/yamllint
-            - lint-commit
+            - commitlint/lint
 
       - test:
           requires:
