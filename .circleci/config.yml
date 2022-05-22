@@ -3,6 +3,9 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
   gh: circleci/github-cli@1.0
+  yamllint: freighthub/yamllint@1.0.0
+  commitlint: conventional-changelog/commitlint@1.0.0
+  changelog: ory/changelog@0.1.10
 
 defaults: &defaults
   working_directory: ~/commitlint_example # Virtual folder in docker
@@ -20,35 +23,11 @@ jobs:
     - persist_to_workspace:
         root: ~/commitlint_example
         paths:
-          - node_modules
-
-  lint-yaml: &lint-yaml
-    <<: *defaults
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/commitlint_example
-      - run: npm run yaml-lint
-
-  lint-commit: &lint-commit
-    <<: *defaults
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/commitlint_example
-      - run: 
-          name: Define environment variable with latest commit's message
-          command:  |
-            echo 'export COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")' >> $BASH_ENV
-            source $BASH_ENV
-      - run: 
-          name: Lint commit message here
-          command: echo "$COMMIT_MESSAGE" | npx commitlint
+          - .
 
   build: &build
     <<: *defaults
     steps:
-      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm start
@@ -56,7 +35,6 @@ jobs:
   test: &test
     <<: *defaults
     steps:
-      - checkout
       - attach_workspace:
           at: ~/commitlint_example
       - run: npm test      
@@ -73,30 +51,43 @@ workflows:
   lint-build-test-release:
     jobs:
       - setup
-      - lint-yaml:
+
+      - yamllint/yamllint:
           requires:
             - setup
-      - lint-commit:
+          files: ./test/docker.yml
+          gitToken: ${GITHUB_TOKEN}
+
+      - commitlint/lint:
           requires:
             - setup
+          # max-count: 5
+          # target-branch: develop
+          target-branch: master
+
       - build:
           requires:
-            - lint-yaml
-            - lint-commit
+            - yamllint/yamllint
+            - commitlint/lint
+
       - test:
           requires:
             - build
-      # - changelog-create:
-      #     filters:
-      #       branches:
-      #         only: 
-      #           - master
-      #     requires:
-      #       - test
+
+      - changelog/generate:
+          gitemail: ${GITHUB_EMAIL}
+          gitusername: ${GITHUB_USERNAME}
+          requires:
+            - test
+          filters:
+            branches:
+              only: 
+                - master
+
       - gh/release:
           notes-file: changelog.md
-          tag: 1.0.5
-          title: Added commit-lint, yaml-lint & auto-created release note with GitFlow
+          tag: 1.0.6
+          title: Change commit-lint, yaml-lint, release note NPM/NPX to CIRCLECI ORBS
           requires: 
             - test
           context: 
