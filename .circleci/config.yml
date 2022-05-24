@@ -7,10 +7,10 @@ orbs:
   commitlint: conventional-changelog/commitlint@1.0.0
   changelog: ory/changelog@0.1.10
 
-defaults: &defaults
-  working_directory: ~/commitlint_example # Virtual folder in docker
-  # docker:
-  #   - image: cimg/node:15.0.1
+# defaults: &defaults
+#   working_directory: ~/commitlint_example # Virtual folder in docker
+#   docker:
+#     - image: cimg/node:15.0.1
 
 jobs:
 
