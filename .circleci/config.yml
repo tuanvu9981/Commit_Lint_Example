@@ -1,21 +1,21 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.7
+  # node: circleci/node@4.7
   gh: circleci/github-cli@1.0
   yamllint: freighthub/yamllint@1.0.0
   commitlint: conventional-changelog/commitlint@1.0.0
   changelog: ory/changelog@0.1.10
 
-# defaults: &defaults
-#   working_directory: ~/commitlint_example # Virtual folder in docker
-#   docker:
-#     - image: cimg/node:15.0.1
+defaults: &defaults
+  working_directory: ~/commitlint_example # Virtual folder in docker
+  docker:
+    - image: cimg/node:15.0.1
 
 jobs:
 
   setup: &setup
-    # <<: *defaults
+    <<: *defaults
     steps:
     - checkout
     - node/install-packages:
@@ -26,7 +26,7 @@ jobs:
           - .
 
   build: &build
-    # <<: *defaults
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/commitlint_example
